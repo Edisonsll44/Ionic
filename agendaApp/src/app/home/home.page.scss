@@ -1,0 +1,55 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.welcome-message {
+  margin-bottom: 16px;
+}
+
+.agenda-title {
+  margin-bottom: 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.image-container {
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.agenda-image {
+  max-width: 120px;
+  height: auto;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.button-links ion-button {
+  text-decoration: underline;
+  font-weight: bold;
+  padding: 0;
+}
+
+.button-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+

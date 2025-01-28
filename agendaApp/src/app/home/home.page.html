@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      ContactosApp
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-item lines="none" class="image-container">
+      <img src="assets/imgs/agendas.png" class="agenda-image" alt="Agenda Electrónica">
+    </ion-item>
+
+    <ion-item lines="none" class="agenda-title">
+      <ion-label class="full-width text-center">Agenda Electrónica</ion-label>
+    </ion-item>
+
+    <ion-card class="login-card" color="light">
+      <ion-card-header>
+        <ion-card-title class="text-center">Inicio de Sesión</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Usuario</ion-label>
+          <ion-input type="text" [(ngModel)]="txt_usuario"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input
+            type="password"
+            [(ngModel)]="txt_clave">
+          </ion-input>
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-item>
+
+        <ion-button expand="block" color="success" (click)="login()">Iniciar Sesión</ion-button>
+
+
+        <ion-item lines="none" class="button-links">
+          <ion-button fill="clear" expand="block" color="primary" (click)="crear()">Registrarse</ion-button>
+          <ion-button fill="clear" expand="block" color="primary" (click)="recuperar()">Recuperar clave</ion-button>
+      </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+
+  </div>
+</ion-content>
