@@ -1,0 +1,7 @@
+{
+  "name": "mesages",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

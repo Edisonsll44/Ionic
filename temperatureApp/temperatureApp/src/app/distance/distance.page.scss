@@ -1,0 +1,13 @@
+.selected {
+  font-weight: bold;
+  color: var(--ion-color-primary);
+}
+ion-label.selected {
+  font-weight: bold;
+  color: var(--ion-color-primary);
+}
+ion-label.disabled {
+  color: var(--ion-color-danger);
+  pointer-events: none;
+}
+

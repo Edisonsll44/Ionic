@@ -1,0 +1,7 @@
+{
+  "name": "temeratureApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

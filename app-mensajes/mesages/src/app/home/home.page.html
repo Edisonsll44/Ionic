@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content fullscreen="true">
+    <ion-item>
+      <ion-button (click)="goToSecondPage()">Ir segunda página</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="goToSecondPageRouter()">Router</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button expand="block" (click)="callModal()">Modal</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button expand="block" (click)="callLocalModal()">Local modal</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button expand="block" (click)="showToast('Testing',3000)">Toast</ion-button>
+    </ion-item>
+
+
+  <ion-list>
+  <ion-radio-group [(ngModel)]="options" (ionChange)="validateRadios()">
+    <ion-item>
+      <ion-label>Amigos</ion-label>
+      <ion-radio value="amigos" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Familia</ion-label>
+      <ion-radio value="familia" checked></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Conocidos</ion-label>
+      <ion-radio value="conocidos" checked></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>
+</ion-content>
+
+  <ion-button expand="block" (click)="setOpen(true)">Modal Basico</ion-button>
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-input label="nombre"></ion-input>
+        <p>
+        este es un ejemplo de texto
+          <ion-button (click)="returnHome()">Aceptar</ion-button>
+        </p>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
