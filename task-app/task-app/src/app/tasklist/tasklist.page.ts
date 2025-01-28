@@ -94,6 +94,7 @@ export class TasklistPage implements OnInit {
 
   async reloadTasks(){
     await this.loadTasks();
+    this.isLoading = false;
   }
 
   private async showDeleteConfirmation(task: TaskDto): Promise<boolean> {

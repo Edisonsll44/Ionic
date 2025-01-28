@@ -120,9 +120,6 @@ export class ActionstaskPage implements OnInit {
       await this.taskService.setTasks(tasks);
 
       this.clearField();
-      setTimeout(() => {
-
-      }, 2000);
 
       this.loadingService.showLoading('Tarea guardada correctamente', 2000);
       setTimeout(() => {

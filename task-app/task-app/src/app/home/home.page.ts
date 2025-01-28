@@ -21,7 +21,7 @@ export class HomePage implements OnInit{
 
       setTimeout(() => {
         this.router.navigate(['/tasklist']);
-      }, 7000);
+      }, 3000);
     }
 
 }
