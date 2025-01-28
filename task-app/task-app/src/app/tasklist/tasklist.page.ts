@@ -16,6 +16,7 @@ export class TasklistPage implements OnInit {
   tasks: { title: string; description: string; status: string }[] = [];
   filteredTasks: { title: string; description: string; status: string }[] = [];
   isInteracting: boolean = false;
+  isLoading: boolean = true;
 
   constructor(private taskService: TaskService,
               private navController: NavController,
@@ -27,10 +28,12 @@ export class TasklistPage implements OnInit {
   }
 
   async ionViewWillEnter() {
+    this.isLoading = true;
     await this.loadingService.showLoading('Cargando tareas...', 5000);
     setTimeout( () => {
 
       this.loadTasks()
+      this.isLoading = false;
     }, 5000);
   }
 
@@ -39,12 +42,13 @@ export class TasklistPage implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     const shouldDelete = await this.showDeleteConfirmation(task);
-
+    this.isLoading = true;
     if (shouldDelete) {
       this.deleteTask(task);
       this.loadingService.showLoading("Tarea finalizada exitosamente", 3000)
       setTimeout(() => {
         this.loadTasks()
+        this.isLoading = false;
       }, 2000);
     }
   }
@@ -80,6 +84,8 @@ export class TasklistPage implements OnInit {
   }
 
   private async loadTasks() {
+    this.isLoading = true;
+
     await this.loadingService.showLoading('Cargando tareas...', 5000);
     this.tasks = await this.taskService.getTasks();
     this.filteredTasks = [...this.tasks];

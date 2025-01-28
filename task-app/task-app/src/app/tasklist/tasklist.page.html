@@ -28,7 +28,21 @@
     </ion-col>
   </ion-row>
 
-  <ion-list>
+  <ion-list *ngIf="isLoading">
+    <ion-item *ngFor="let skeleton of [1, 2, 3, 4]">
+      <ion-label>
+        <h2>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </h2>
+        <p>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Lista de tareas cuando no hay carga -->
+  <ion-list *ngIf="!isLoading">
     <ion-item *ngFor="let task of filteredTasks"
       [routerLink]="['/detailstask']"
       [queryParams]="{ task: task | json }"
