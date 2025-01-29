@@ -1,7 +1,11 @@
+import { SessionService } from './../servicio/session.service';
 import { Component } from '@angular/core';
-import { LoadingController, ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { AccesoService } from '../servicio/acceso.service';
 import { CuentaPage } from '../cuenta/cuenta.page';
+import { LoadingService } from '../servicio/loading.service';
+import { loginDto } from 'src/interfaces/usuario';
+import { LOGIN_API } from 'src/interfaces/constantes';
 
 @Component({
   selector: 'app-home',
@@ -12,56 +16,58 @@ import { CuentaPage } from '../cuenta/cuenta.page';
 export class HomePage {
   txt_clave: string = '';
   txt_usuario: string = '';
+  isPasswordVisible: boolean = false;
+
 
   constructor(
-    private loadingCtrl: LoadingController,
-    private servicio: AccesoService,
-    private navCrtl: NavController,
-    private mr : ModalController
+    private loadingService: LoadingService,
+    private accessService: AccesoService,
+    private navControler: NavController,
+    private modalControler: ModalController,
+    private sessionService: SessionService
   ) {}
 
   login() {
-    // let datos = {
-    //   accion: 'login',
-    //   usuario: this.txt_usuario,
-    //   clave: this.txt_clave,
-    // };
-    // this.servicio.postData(datos).subscribe((res: any) => {
-    //   if (res.estado) {
-    //     this.servicio.showToast('Encontró persona', 3000);
-    //     console.log(res.persona);
-    //     this.servicio.createSesion('idpersona', res.persona.codigo);
-    //     this.servicio.createSesion('persona', res.persona.nombre);
-        this.navCrtl.navigateRoot(['/menu']);
-    //   } else {
-    //     this.servicio.showToast('No encontro persona', 3000);
-    //   }
-    // });
+    const dto: loginDto = {
+      email: this.txt_usuario,
+      password: this.txt_clave,
+    };
+    this.accessService.postData(dto, LOGIN_API).
+    subscribe({
+      next: async (res: any) => {
+        if (res.success) {
+          await this.sessionService.createSesion("data-user",res.data);
+          await this.loadingService.showLoading('Cargando...',3000,'circles');
+          this.navControler.navigateRoot(['/menu']);
+          await this.loadingService.hideLoading();
+        } else {
+          this.loadingService.showToast(res.message || 'Usuario no encontrado', 3000, 'danger');
+        }
+      },
+      error: (err) => {
+        this.loadingService.showToast(err.error.message, 3000, 'danger');
+      },
+    });
+
   }
 
-  async crear() {
-    // this.navCrtl.navigateRoot(['/crear']);
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
 
-    const modal = await this.mr.create({
+  async registrarse() {
+    const modalView = await this.modalControler.create({
       component: CuentaPage,
       componentProps: {
         nombre: 'Fernando',
         pais: 'Ecuador',
       },
     });
-    await modal.present();
+    await modalView.present();
   }
 
   recuperar() {
-    this.navCrtl.navigateForward(["/rclave"])
+    this.navControler.navigateForward(["/rclave"])
   }
 
-  async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Cargando...',
-      duration: 3000,
-      spinner: 'circles',
-    });
-    loading.present();
-  }
 }

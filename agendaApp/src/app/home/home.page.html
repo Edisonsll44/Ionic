@@ -32,14 +32,13 @@
             type="password"
             [(ngModel)]="txt_clave">
           </ion-input>
-          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-item>
 
         <ion-button expand="block" color="success" (click)="login()">Iniciar Sesión</ion-button>
 
 
         <ion-item lines="none" class="button-links">
-          <ion-button fill="clear" expand="block" color="primary" (click)="crear()">Registrarse</ion-button>
+          <ion-button fill="clear" expand="block" color="primary" (click)="registrarse()">Registrarse</ion-button>
           <ion-button fill="clear" expand="block" color="primary" (click)="recuperar()">Recuperar clave</ion-button>
       </ion-item>
       </ion-card-content>

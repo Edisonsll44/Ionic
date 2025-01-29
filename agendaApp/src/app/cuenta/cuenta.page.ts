@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccesoService } from '../servicio/acceso.service';
 import { ModalController } from '@ionic/angular';
 import { LoadingService } from "../servicio/loading.service";
+import { filterid, formatUrl, PERSON_API, VALIDATION_API } from 'src/interfaces/constantes';
+import { usuarioDto } from 'src/interfaces/usuario';
 
 @Component({
   selector: 'app-cuenta',
@@ -18,11 +20,12 @@ export class CuentaPage implements OnInit {
   txt_clave: string = '';
   txt_cclave: string = '';
   mensaje: string = '';
+  mensajeClave: string = '';
 
 
   constructor(
     private servicio: AccesoService,
-    private mr: ModalController,
+    private modalView: ModalController,
     private loadingService: LoadingService
 
   ) { }
@@ -30,69 +33,65 @@ export class CuentaPage implements OnInit {
   ngOnInit() {
   }
 
-  vcedula() {
+  validaCedula() {
+    if(this.txt_cedula.toString().length ===10) {
+    const API = VALIDATION_API
 
-    let datos = {
-      accion: 'vcedula',
-      cedula: this.txt_cedula
-    };
-
-    this.servicio.postData(datos, "LOGIN").subscribe((res: any) => {
-      if (res.estado) {
-        this.txt_cedula = "";
-        this.loadingService.showToast(res.mensaje, 300)
-      }
-    });
+    const endPoint = formatUrl(API,this.txt_cedula,filterid)
+      this.servicio.getData(endPoint).subscribe((response: any) => {
+        if (response.value) {
+          this.txt_cedula = "";
+          this.loadingService.showToast("El usuario ya se encuentra registrado", 3000,'primary')
+        }
+      });
+    }
 
   }
 
   vclave() {
-    if (this.txt_clave == this.txt_cclave) {
-      this.mensaje = 'Registro exitoso';
+    if (this.txt_clave !== this.txt_cclave) {
+      this.mensajeClave = 'Las claves no coinciden';
     } else {
-      this.mensaje = 'Las contraseñas no coinciden';
+      this.mensajeClave = '';
     }
   }
 
   cancelar() {
-
-    this.mr.dismiss();
+    this.modalView.dismiss();
   }
 
   registrar() {
 
-    if (this.txt_cedula != "" && this.txt_nombre != "" && this.txt_apellido != "" && this.txt_correo != "" && this.txt_clave != "") {
-      let datos = {
-        accion: 'cuenta',
-        cedula: this.txt_cedula,
-        nombre: this.txt_nombre,
-        apellido: this.txt_apellido,
-        correo: this.txt_correo,
-        clave: this.txt_clave
+    if (this.txt_cedula != "" &&
+        this.txt_nombre != "" &&
+        this.txt_apellido != "" &&
+        this.txt_correo != "" &&
+        this.txt_clave != "") {
+
+      const datos:usuarioDto = {
+        ci:this.txt_cedula,
+        nombre_persona:this.txt_nombre,
+        apellido_persona:this.txt_apellido,
+        clave_persona:this.txt_clave,
+        correo_persona:this.txt_correo
       };
-      this.servicio.postData(datos,"LOGIN").subscribe((res: any) => {
-        if (res.estado) {
-          this.mr.dismiss();
-          this.loadingService.showToast(res.mensaje, 3000)
+
+      this.servicio.postData(datos, PERSON_API).subscribe({
+        next: (res: any) => {
+          this.modalView.dismiss();
+          this.loadingService.showToast(res.message || 'Registro exitoso', 3000, 'primary');
+        },
+        error: (err) => {
+          const errorMessage = err.error?.message || 'Ocurrió un error en el registro';
+          this.loadingService.showToast(errorMessage, 3000, 'danger');
+        },
+        complete: () => {
+          console.log('Registro completado');
         }
       });
-    }
-    else {
-      this.loadingService.showToast('Faltan campor por llenar', 3000);
-    }
-  }
 
-  recuperar() {
-    let datos = {
-      accion: 'recuperar',
-      correo: this.txt_correo
-    };
-
-    this.servicio.postData(datos, "LOGIN").subscribe((res: any) => {
-      if (res.estado) {
-        this.mr.dismiss();
-        this.loadingService.showToast(res.mensaje, 3000)
-      }
-    });
+    }else {
+      this.loadingService.showToast('Faltan campor por llenar', 3000,'danger');
+    }
   }
 }

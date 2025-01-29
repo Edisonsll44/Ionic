@@ -1,4 +1,4 @@
-import { ENDPOINTS, getApiUrl } from './../../interfaces/constantes';
+import { getApiUrl } from './../../interfaces/constantes';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AccesoService {
   constructor(private http: HttpClient) { }
 
-  postData(body: any, endPoint: keyof typeof ENDPOINTS): Observable<any> {
+  postData(body: any, endPoint: string): Observable<any> {
     let head = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
     let options = { headers: head };
     let server = getApiUrl(endPoint);
@@ -17,19 +17,26 @@ export class AccesoService {
   }
 
 
-  getData(): Observable<any> {
+  getData(endPoint: string): Observable<any> {
     let head = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
     let options = { headers: head };
-    let server = getApiUrl("PERSON_API");
+    let server = getApiUrl(endPoint);
     return this.http.get(server, options);
   }
 
 
-  putData(body: any): Observable<any> {
+  putData(body: any, endPoint: string): Observable<any> {
     let head = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
     let options = { headers: head };
-    let server = getApiUrl("REGISTER");
+    let server = getApiUrl(endPoint);
     return this.http.put(server, JSON.stringify(body), options);
+  }
+
+  patchData(body: any, endPoint: string): Observable<any> {
+    let head = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+    let options = { headers: head };
+    let server = getApiUrl(endPoint);
+    return this.http.patch(server, JSON.stringify(body), options);
   }
 
 }

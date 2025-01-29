@@ -11,7 +11,11 @@
         <!-- Cédula -->
         <ion-item>
           <ion-label position="floating">Cédula</ion-label>
-          <ion-input type="number" maxlength="10" [(ngModel)]="txt_cedula" (focusout)="vcedula()"></ion-input>
+          <ion-input type="number" maxlength="10"
+          [(ngModel)]="txt_cedula"
+          (focusout)="validaCedula()"
+          pattern="[0-9]*"
+          maxlength="10"></ion-input>
         </ion-item>
 
         <!-- Nombre -->
@@ -44,6 +48,10 @@
           <ion-input type="password" [(ngModel)]="txt_cclave" (focusout)="vclave()"></ion-input>
         </ion-item>
 
+        <ion-item lines="none">
+          <ion-label color="danger" *ngIf="mensajeClave">{{ mensajeClave }}</ion-label>
+        </ion-item>
+
         <!-- Mensaje de error -->
         <ion-item lines="none">
           <ion-label color="danger" *ngIf="mensaje">{{ mensaje }}</ion-label>
@@ -62,3 +70,4 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+hay mucho espacio entre el objeto que saca el mensaje, y los botones hay mucho espacio aydame con el diseo

@@ -17,6 +17,13 @@ export class SessionService {
     });
   }
 
+  async createName(id: string, valor: string) {
+    await Preferences.set({
+      key: id,
+      value: valor
+    });
+  }
+
   async getSesion(id: string) {
     const item = await Preferences.get({ key: id });
     return item.value;
