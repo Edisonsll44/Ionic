@@ -8,13 +8,15 @@
   <ion-grid class="full-height">
     <ion-row class="ion-justify-content-center ion-align-items-center full-height">
       <ion-col size="12" size-md="8" size-lg="6">
-        <!-- Título del formulario -->
-        <ion-card-title class="ion-text-center ion-margin-bottom">Perfil de usuario</ion-card-title>
-
+        <div class="ion-text-center">
+          <ion-avatar class="avatar">
+            <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </ion-avatar>
+        </div>
         <!-- Cédula -->
         <ion-item>
           <ion-label position="floating">Cédula</ion-label>
-          <ion-input type="number" maxlength="10" [(ngModel)]="cedula"></ion-input>
+          <ion-input [disabled]="bloquearId" type="number" maxlength="10" [(ngModel)]="cedula"></ion-input>
         </ion-item>
 
         <!-- Nombre -->
@@ -44,9 +46,12 @@
         <!-- Repetir Clave -->
         <ion-item>
           <ion-label position="floating">Repetir clave</ion-label>
-          <ion-input type="password" [(ngModel)]="repetirClave"></ion-input>
+          <ion-input type="password" [(ngModel)]="repetirClave" (focusout)="verificarclave()"></ion-input>
         </ion-item>
 
+        <ion-item lines="none">
+          <ion-label color="danger" *ngIf="mensaje">{{ mensaje }}</ion-label>
+        </ion-item>
         <!-- Botón Guardar -->
         <ion-row class="ion-justify-content-center">
           <ion-col size="12">

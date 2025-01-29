@@ -1,7 +1,6 @@
 import { SessionService } from './../servicio/session.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { AccesoService } from '../servicio/acceso.service';
 
 @Component({
   selector: 'app-menu',
@@ -14,31 +13,22 @@ export class MenuPage implements OnInit {
 
   constructor(private navCtrl: NavController,
               private sessionService: SessionService
-  ) {
-
-  }
+  ) {}
 
   async ngOnInit() {
-    const data = await this.sessionService.getSesion("data-user-name");
+    this.nombre = await this.sessionService.getSesion("data-user-name") ?? "";
+let c = this.nombre;
 
-    if (data) {
-      const t = JSON.parse(data); // Si `data` no es null, convierte el JSON en un objeto
-      // Ahora puedes acceder a las propiedades del objeto 't'
-      console.log(t);
-    } else {
-      console.error('No se encontró "data-user" en el almacenamiento de sesión.');
-    }
-    const t = data;
   }
 
   goToProfile() {
-    this.navCtrl.navigateForward('/perfil'); // Ruta del perfil
+    this.navCtrl.navigateForward('/perfil');
   }
 
   // Cerrar sesión
   logout() {
-    // Aquí puedes agregar la lógica para cerrar sesión
+    this.sessionService.closeSession();
     console.log('Cerrando sesión...');
-    this.navCtrl.navigateRoot('/home'); // Navega a la pantalla de login
+    this.navCtrl.navigateRoot('/home');
   }
 }

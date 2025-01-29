@@ -73,7 +73,8 @@ export class CuentaPage implements OnInit {
         nombre_persona:this.txt_nombre,
         apellido_persona:this.txt_apellido,
         clave_persona:this.txt_clave,
-        correo_persona:this.txt_correo
+        correo_persona:this.txt_correo,
+        id:"0"
       };
 
       this.servicio.postData(datos, PERSON_API).subscribe({

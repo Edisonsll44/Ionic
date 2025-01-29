@@ -3,6 +3,7 @@ import { environment } from "src/environments/environment";
 export const PERSON_API: string = '/personApi.php';
 export const  LOGIN_API: string =  '/loginApi.php';
 export const  VALIDATION_API: string =  '/personApi.php/{0}/{1}';
+export const  GETUSER_API: string =  '/personApi.php/{0}';
 
 export const filterid:string = "ci_persona";
 export const filtermail:string = "correo_persona";

@@ -8,7 +8,8 @@ export interface usuarioDto{
   nombre_persona:string,
   apellido_persona:string
   clave_persona:string,
-  correo_persona:string
+  correo_persona:string,
+  id:string,
 }
 
 export interface recuperaClave {

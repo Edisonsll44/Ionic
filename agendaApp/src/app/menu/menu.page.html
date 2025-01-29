@@ -12,7 +12,10 @@
         <ion-icon slot="start" name="person-circle-outline"></ion-icon>
         <ion-label>Perfil</ion-label>
       </ion-item>
-
+      <ion-item button>
+        <ion-icon name="accessibility-outline"></ion-icon>
+        <ion-label>Contactos</ion-label>
+      </ion-item>
       <!-- Opción de Cerrar sesión -->
       <ion-item button (click)="logout()">
         <ion-icon slot="start" name="log-out-outline"></ion-icon>
@@ -34,7 +37,7 @@
 
   <ion-content class="ion-padding">
     <div class="welcome-message">
-      Bienvenido Eddy!
+      Bienvenido {{nombre}}!
     </div>
     <ion-item lines="none" class="image-container">
       <img src="assets/imgs/agendas.png" class="agenda-image" alt="Agenda Electrónica">

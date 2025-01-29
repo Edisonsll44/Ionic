@@ -1,5 +1,5 @@
 import { SessionService } from './../servicio/session.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { AccesoService } from '../servicio/acceso.service';
 import { CuentaPage } from '../cuenta/cuenta.page';
@@ -13,7 +13,7 @@ import { LOGIN_API } from 'src/interfaces/constantes';
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
-export class HomePage {
+export class HomePage implements OnInit {
   txt_clave: string = '';
   txt_usuario: string = '';
   isPasswordVisible: boolean = false;
@@ -22,10 +22,15 @@ export class HomePage {
   constructor(
     private loadingService: LoadingService,
     private accessService: AccesoService,
-    private navControler: NavController,
+    private navController: NavController,
     private modalControler: ModalController,
     private sessionService: SessionService
   ) {}
+  ngOnInit(): void {
+    this.sessionService.closeSession();
+    this.txt_clave = "";
+    this.txt_usuario= "";
+  }
 
   login() {
     const dto: loginDto = {
@@ -36,17 +41,20 @@ export class HomePage {
     subscribe({
       next: async (res: any) => {
         if (res.success) {
-          await this.sessionService.createSesion("data-user",res.data);
-          await this.loadingService.showLoading('Cargando...',3000,'circles');
-          this.navControler.navigateRoot(['/menu']);
-          await this.loadingService.hideLoading();
+          await this.sessionService.createName("data-user-name",res.data.nombre_persona);
+          await this.sessionService.createName("user-id",res.data.id);
+          await this.loadingService.showLoading('Cargando...',5000,'circles');
+          setTimeout(async () => {
+            await this.loadingService.hideLoading();
+            this.navController.navigateRoot(['/menu']);
+          }, 5000);
         } else {
           this.loadingService.showToast(res.message || 'Usuario no encontrado', 3000, 'danger');
         }
       },
       error: (err) => {
         this.loadingService.showToast(err.error.message, 3000, 'danger');
-      },
+      }
     });
 
   }
@@ -67,7 +75,7 @@ export class HomePage {
   }
 
   recuperar() {
-    this.navControler.navigateForward(["/rclave"])
+    this.navController.navigateForward(["/rclave"])
   }
 
 }

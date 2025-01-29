@@ -76,7 +76,7 @@ export class RclavePage implements OnInit {
     {
       this.mensajeClave = 'Debe ingresar una clave';
     }else{
-      const id = await this.sessionService.getSesion("user-id") ?? ""; // Si es null, usa ""
+      const id = await this.sessionService.getSesion("user-id") ?? "";
 
       let datos: recuperaClave = {
         id: id,
