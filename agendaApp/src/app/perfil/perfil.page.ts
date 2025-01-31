@@ -40,6 +40,8 @@ export class PerfilPage implements OnInit {
   }
 
   async guardar() {
+    this.loadingService.showLoading("Cargando.....", 3000, "circles");
+
     // Validaciones antes de guardar
     if (!this.nombre || !this.apellido || !this.cedula || !this.correo) {
       this.loadingService.showToast("Todos los campos son obligatorios", 3000, "danger");
@@ -82,6 +84,9 @@ export class PerfilPage implements OnInit {
     } catch (error) {
       this.loadingService.showToast("Error inesperado", 3000, "danger");
     }
+    this.limpiarCampos();
+    this.loadingService.hideLoading();
+    this.loadData();
   }
 
   cancelar() {
@@ -101,6 +106,7 @@ export class PerfilPage implements OnInit {
     const id = await this.sessionService.getSesion("user-id") ?? "";
     const endPoint = formatUrl(API, id);
 
+    this.loadingService.showLoading("Cargando.....", 3000, "circles");
     this.servicio.getData(endPoint).subscribe(
       (response: usuarioDto) => {
         if (response && response.nombre_persona) {
@@ -110,6 +116,7 @@ export class PerfilPage implements OnInit {
           this.apellido = response.apellido_persona;
           this.correo = response.correo_persona;
           this.clave = response.clave_persona;
+          this.repetirClave = response.clave_persona;
           this.loadingService.showToast("Información cargada exitosamente", 3000, "success");
         } else {
           this.loadingService.showToast("Usuario no encontrado", 3000, "danger");
@@ -120,5 +127,16 @@ export class PerfilPage implements OnInit {
         this.loadingService.showToast(errorMessage, 3000, "danger");
       }
     );
+    this.loadingService.hideLoading();
+  }
+  limpiarCampos(){
+    this.cedula= '';
+    this.nombre= '';
+    this.apellido = '';
+    this.correo = '';
+    this.clave = '';
+    this.repetirClave = '';
+    this.bloquearId = true;
+    this.mensaje="";
   }
 }

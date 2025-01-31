@@ -21,7 +21,7 @@ export class CuentaPage implements OnInit {
   txt_cclave: string = '';
   mensaje: string = '';
   mensajeClave: string = '';
-
+  bloqueo:boolean = false;
 
   constructor(
     private servicio: AccesoService,
@@ -31,6 +31,7 @@ export class CuentaPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.bloqueo = true;
   }
 
   validaCedula() {
@@ -53,6 +54,7 @@ export class CuentaPage implements OnInit {
       this.mensajeClave = 'Las claves no coinciden';
     } else {
       this.mensajeClave = '';
+      this.bloqueo = false;
     }
   }
 

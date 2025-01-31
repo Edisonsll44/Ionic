@@ -37,6 +37,8 @@ export class RclavePage implements OnInit {
     if(this.txt_correo.toString().length !=0) {
       const API = VALIDATION_API
 
+      this.loadingService.showLoading("Procesando...", 3000, "circles");
+
       const endPoint = formatUrl(API,this.txt_correo,filtermail)
       this.servicio.getData(endPoint).subscribe(
         (response: any) => {
@@ -45,6 +47,7 @@ export class RclavePage implements OnInit {
             this.bloqueaRecuperar=false;
             this.bloquearEmail = true;
             this.sessionService.createSesion("user-id",response.value);
+            this.loadingService.showToast("Usuario encontrado, por favor ingrese su nueva clave", 3000, 'success');
           } else {
             this.loadingService.showToast("Usuario no existente", 3000, 'alert');
           }
@@ -55,6 +58,8 @@ export class RclavePage implements OnInit {
           this.txt_correo = "";
         }
       );
+      this.loadingService.hideLoading();
+
     }
   }
 
@@ -72,6 +77,7 @@ export class RclavePage implements OnInit {
 
   async recuperar() {
 
+    this.loadingService.showLoading("Procesando...", 3000, "circles");
     if(this.txt_cclave.toString.length == 0 && this.txt_clave.toString().length == 0)
     {
       this.mensajeClave = 'Debe ingresar una clave';
@@ -93,6 +99,7 @@ export class RclavePage implements OnInit {
         }
       });
     }
+    this.loadingService.hideLoading();
   }
 
   cancelar(){

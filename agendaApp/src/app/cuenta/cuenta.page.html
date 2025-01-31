@@ -60,7 +60,7 @@
         <!-- Botones -->
         <ion-row class="ion-margin-top ion-justify-content-between">
           <ion-col size="12" size-md="5">
-            <ion-button expand="block" color="success" (click)="registrar()">Registrarse</ion-button>
+            <ion-button [disabled]="bloqueo" expand="block" color="success" (click)="registrar()">Registrarse</ion-button>
           </ion-col>
           <ion-col size="12" size-md="5">
             <ion-button expand="block" color="danger" (click)="cancelar()">Cancelar</ion-button>
@@ -70,4 +70,3 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-hay mucho espacio entre el objeto que saca el mensaje, y los botones hay mucho espacio aydame con el diseo
