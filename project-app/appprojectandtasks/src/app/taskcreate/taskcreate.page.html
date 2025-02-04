@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Agregar tarea </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scroll-y="true">
+  <form (submit)="saveProject()">
+    <!-- Nombre -->
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input type="text" name="nombre" [(ngModel)]="titulo" required></ion-input>
+    </ion-item>
+
+    <!-- Descripción -->
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea name="descripcion" [(ngModel)]="descripcion" required></ion-textarea>
+    </ion-item>
+
+    <!-- Estado -->
+    <ion-item>
+      <ion-label position="floating">Estado</ion-label>
+      <ion-select name="estado" [(ngModel)]="estado" required>
+        <ion-select-option value="Creado">Creado</ion-select-option>
+        <ion-select-option value="En desarrollo">En desarrollo</ion-select-option>
+        <ion-select-option value="Finalizado">Finalizado</ion-select-option>
+        <ion-select-option value="Bloqueado">Bloqueado</ion-select-option>
+        <ion-select-option value="Cancelado">Cancelado</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Fecha de Inicio -->
+    <ion-item>
+      <ion-label>Fecha de Inicio</ion-label>
+      <ion-datetime
+        name="fecha_inicio"
+        [(ngModel)]="fecha_inicio"
+        presentation="date"
+        [min]="minFecha"
+        required
+      ></ion-datetime>
+    </ion-item>
+
+    <!-- Fecha de Fin -->
+    <ion-item>
+      <ion-label>Fecha de Fin</ion-label>
+      <ion-datetime
+        name="fecha_fin"
+        [(ngModel)]="fecha_fin"
+        presentation="date"
+        [min]="fecha_inicio"
+        required
+      ></ion-datetime>
+    </ion-item>
+
+    <!-- Botón de Agregar -->
+    <ion-button color="success" expand="full" type="submit"
+      [disabled]="!titulo || !descripcion || !estado || !fecha_inicio || !fecha_fin">
+      Agregar
+    </ion-button>
+
+    <!-- Botón de Cancelar -->
+    <ion-button expand="full" color="danger" (click)="cancel()">
+      Cancelar
+    </ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,64 @@
+/* Estilos para el botón flotante */
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Estilo para el badge circular */
+.badge-circle {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+/* Estilo general para el header de cada sección */
+.list-header-label {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo para cada ítem de proyecto */
+.project-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.project-description {
+  font-style: italic;
+  color: #555;
+  font-size: 14px;
+}
+
+.project-date {
+  font-size: 15px;
+  color: #777;
+  margin-top: 4px;
+  font-weight: bold;
+}
+
+/* Espaciado entre cada ion-item */
+ion-item {
+  margin-bottom: 12px;
+}
+
+/* Asegurar que el contenido se ajuste correctamente */
+ion-col {
+  padding: 5px;
+}
+
+.clickable-item {
+  cursor: pointer;
+}

@@ -1,0 +1,132 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="project-title">Tareas del proyecto: {{project}}</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Contenedor de botones flotantes -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="addTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    <ion-list-header color="primary">
+      <ion-label class="list-header-label">
+        <ion-badge class="badge-circle">{{ creado.length }}</ion-badge>
+        Creado
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let task of creado" (click)="editProject(task)" class="clickable-item">
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="project-name">{{ task.titulo }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-description">{{ task.descripcion }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-date">{{ task.fecha_inicio }} - {{ task.fecha_fin }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+  <!-- Sección de "En Desarrollo" -->
+  <ion-list>
+    <ion-list-header color="secondary">
+      <ion-label class="list-header-label">
+        <ion-badge class="badge-circle">{{ enDesarrollo.length }}</ion-badge>
+        En desarrollo
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let task of enDesarrollo" (click)="editProject(task)" class="clickable-item">
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="project-name">{{ task.titulo }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-description">{{ task.descripcion }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-date">{{ task.fecha_inicio }} - {{ task.fecha_fin }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <!-- Sección de "Finalizado" -->
+  <ion-list>
+    <ion-list-header color="success">
+      <ion-label class="list-header-label">
+        <ion-badge class="badge-circle">{{ finalizado.length }}</ion-badge>
+        Finalizado
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let task of finalizado" (click)="editProject(task)" class="clickable-item">
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="project-name">{{ task.titulo }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-description">{{ task.descripcion }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-date">{{ task.fecha_inicio }} - {{ task.fecha_fin }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <!-- Sección de "Bloqueado" -->
+  <ion-list>
+    <ion-list-header color="warning">
+      <ion-label class="list-header-label">
+        <ion-badge class="badge-circle">{{ bloqueado.length }}</ion-badge>
+        Bloqueado
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let task of bloqueado" (click)="editProject(task)" class="clickable-item">
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="project-name">{{ task.titulo }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-description">{{ task.descripcion }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-date">{{ task.fecha_inicio }} - {{ task.fecha_fin }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <!-- Sección de "Cancelado" -->
+  <ion-list>
+    <ion-list-header color="danger">
+      <ion-label class="list-header-label">
+        <ion-badge class="badge-circle">{{ cancelado.length }}</ion-badge>
+        Cancelado
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let task of cancelado" (click)="editProject(task)" class="clickable-item">
+      <ion-row>
+        <ion-col size="12">
+          <ion-label class="project-name">{{ task.titulo }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-description">{{ task.descripcion }}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ion-label class="project-date">{{ task.fecha_inicio }} - {{ task.fecha_fin }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <!-- Botón para salir -->
+  <ion-button expand="full" color="tertiary" (click)="gotoHome()">Salir</ion-button>
+
+</ion-content>

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Proyecto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button color="tertiary" (click)="gotoTask()">
+    <ion-icon name="extension-puzzle-outline"></ion-icon>  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="project.nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea [(ngModel)]="project.descripcion"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Estado</ion-label>
+      <ion-select name="estado" [(ngModel)]="project.estado" required>
+        <ion-select-option value="En desarrollo">En desarrollo</ion-select-option>
+        <ion-select-option value="Finalizado">Finalizado</ion-select-option>
+        <ion-select-option value="Bloqueado">Bloqueado</ion-select-option>
+        <ion-select-option value="Cancelado">Cancelado</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Fecha de Inicio</ion-label>
+      <ion-input type="date" [(ngModel)]="project.fecha_inicio"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Fecha de Fin</ion-label>
+      <ion-input type="date" [(ngModel)]="project.fecha_fin"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" color="success" (click)="updateProject()">Actualizar</ion-button>
+  <ion-button expand="full" color="warning" (click)="deleteProject()">Eliminar</ion-button>
+  <ion-button expand="full" color="danger" (click)="cancel()">Cancelar</ion-button>
+
+</ion-content>
